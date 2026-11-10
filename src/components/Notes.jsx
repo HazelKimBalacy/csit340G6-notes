@@ -81,21 +81,26 @@ function Notes() {
 
       <section className="notes-content">
         <h2 className="all-notes-title">All notes</h2>
-        <ul className="notes-grid">
-          {notes.map((note) => (
-            <li className="note-card" key={note.id}>
-              <NoteCard title={note.title} body={note.body} />
-              <button
-                className="delete-note"
-                type="button"
-                aria-label={`Delete ${note.title}`}
-                onClick={() => handleDelete(note.id)}
-              >
-                ×
-              </button>
-            </li>
-          ))}
-        </ul>
+
+        {notes.length === 0 ? (
+          <p>No notes yet.</p>
+        ) : (
+          <ul className="notes-grid">
+            {notes.map((note) => (
+              <li className="note-card" key={note.id}>
+                <NoteCard title={note.title} body={note.body} />
+                <button
+                  className="delete-note"
+                  type="button"
+                  aria-label={`Delete ${note.title}`}
+                  onClick={() => handleDelete(note.id)}
+                >
+                  ×
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
       </section>
     </div>
   )
