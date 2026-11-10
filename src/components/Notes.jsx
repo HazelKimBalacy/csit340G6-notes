@@ -1,3 +1,4 @@
+
 import { useState } from 'react'
 import NoteCard from './NoteCard.jsx'
 
@@ -14,6 +15,9 @@ function Notes() {
       body: 'Practice writing one handler for many inputs.',
     },
   ])
+
+  const [title, setTitle] = useState('')
+  const [body, setBody] = useState('')
 
   return (
     <div className="notes-layout">
@@ -33,10 +37,17 @@ function Notes() {
 
         <form className="new-note-form">
           <p className="field-label">New note</p>
-          <input className="text-field" placeholder="Title" />
+          <input
+            className="text-field"
+            placeholder="Title"
+            value={title}
+            onChange={(event) => setTitle(event.target.value)}
+          />
           <textarea
             className="text-field note-textarea"
             placeholder="Write your note"
+            value={body}
+            onChange={(event) => setBody(event.target.value)}
           />
           <button className="add-note-button" type="button">
             Add note
