@@ -19,6 +19,24 @@ function Notes() {
   const [title, setTitle] = useState('')
   const [body, setBody] = useState('')
 
+  function handleSubmit(event) {
+    event.preventDefault()
+
+    if (!title.trim() || !body.trim()) {
+      return
+    }
+
+    const newNote = {
+      id: Date.now(),
+      title: title,
+      body: body,
+    }
+
+    setNotes((prevNotes) => [...prevNotes, newNote])
+    setTitle('')
+    setBody('')
+  }
+
   return (
     <div className="notes-layout">
       <aside className="notes-sidebar">
@@ -35,7 +53,7 @@ function Notes() {
           />
         </div>
 
-        <form className="new-note-form">
+        <form className="new-note-form" onSubmit={handleSubmit}>
           <p className="field-label">New note</p>
           <input
             className="text-field"
@@ -49,7 +67,7 @@ function Notes() {
             value={body}
             onChange={(event) => setBody(event.target.value)}
           />
-          <button className="add-note-button" type="button">
+          <button className="add-note-button" type="submit">
             Add note
           </button>
         </form>
