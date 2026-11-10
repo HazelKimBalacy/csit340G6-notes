@@ -1,6 +1,20 @@
+import { useState } from 'react'
 import NoteCard from './NoteCard.jsx'
 
 function Notes() {
+  const [notes, setNotes] = useState([
+    {
+      id: 1,
+      title: 'Review map and filter',
+      body: 'Redo the TodoMVC steps without looking at the guide.',
+    },
+    {
+      id: 2,
+      title: 'Prepare for the quiz',
+      body: 'Practice writing one handler for many inputs.',
+    },
+  ])
+
   return (
     <div className="notes-layout">
       <aside className="notes-sidebar">
@@ -33,32 +47,18 @@ function Notes() {
       <section className="notes-content">
         <h2 className="all-notes-title">All notes</h2>
         <ul className="notes-grid">
-          <li className="note-card">
-            <NoteCard
-              title="Review map and filter"
-              body="Redo the TodoMVC steps without looking at the guide."
-            />
-            <button
-              className="delete-note"
-              type="button"
-              aria-label="Delete Review map and filter"
-            >
-              ×
-            </button>
-          </li>
-          <li className="note-card">
-            <NoteCard
-              title="Prepare for the quiz"
-              body="Practice writing one handler for many inputs."
-            />
-            <button
-              className="delete-note"
-              type="button"
-              aria-label="Delete Prepare for the quiz"
-            >
-              ×
-            </button>
-          </li>
+          {notes.map((note) => (
+            <li className="note-card" key={note.id}>
+              <NoteCard title={note.title} body={note.body} />
+              <button
+                className="delete-note"
+                type="button"
+                aria-label={`Delete ${note.title}`}
+              >
+                ×
+              </button>
+            </li>
+          ))}
         </ul>
       </section>
     </div>
