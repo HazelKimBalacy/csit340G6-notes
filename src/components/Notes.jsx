@@ -18,6 +18,7 @@ function Notes() {
 
   const [title, setTitle] = useState('')
   const [body, setBody] = useState('')
+  const [search, setSearch] = useState('')
 
   function handleSubmit(event) {
     event.preventDefault()
@@ -43,6 +44,10 @@ function Notes() {
     )
   }
 
+  const filteredNotes = notes.filter((note) =>
+    note.title.toLowerCase().includes(search.toLowerCase())
+  )
+
   return (
     <div className="notes-layout">
       <aside className="notes-sidebar">
@@ -56,6 +61,8 @@ function Notes() {
             className="text-field"
             id="search"
             placeholder="Search by title"
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
           />
         </div>
 
@@ -82,11 +89,11 @@ function Notes() {
       <section className="notes-content">
         <h2 className="all-notes-title">All notes</h2>
 
-        {notes.length === 0 ? (
+        {filteredNotes.length === 0 ? (
           <p>No notes yet.</p>
         ) : (
           <ul className="notes-grid">
-            {notes.map((note) => (
+            {filteredNotes.map((note) => (
               <li className="note-card" key={note.id}>
                 <NoteCard title={note.title} body={note.body} />
                 <button
