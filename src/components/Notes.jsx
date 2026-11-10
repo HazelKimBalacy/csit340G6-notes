@@ -37,6 +37,12 @@ function Notes() {
     setBody('')
   }
 
+  function handleDelete(id) {
+    setNotes((prevNotes) =>
+      prevNotes.filter((note) => note.id !== id)
+    )
+  }
+
   return (
     <div className="notes-layout">
       <aside className="notes-sidebar">
@@ -83,6 +89,7 @@ function Notes() {
                 className="delete-note"
                 type="button"
                 aria-label={`Delete ${note.title}`}
+                onClick={() => handleDelete(note.id)}
               >
                 ×
               </button>
