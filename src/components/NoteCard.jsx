@@ -7,18 +7,15 @@ function NoteCard({ title, body }) {
   return (
     <div>
       <h3 className="note-title">{title}</h3>
-      <p className="note-body">
-        {showMore ? body : `${body.slice(0, 80)}${body.length > 80 ? '...' : ''}`}
-      </p>
-      {body.length > 80 && (
-        <button
-          className="show-more"
-          type="button"
-          onClick={() => setShowMore(!showMore)}
-        >
-          {showMore ? 'Show less' : 'Show more'}
-        </button>
-      )}
+      {showMore && <p className="note-body">{body}</p>}
+      <button
+        className="show-more"
+        type="button"
+        aria-expanded={showMore}
+        onClick={() => setShowMore((expanded) => !expanded)}
+      >
+        {showMore ? 'Show less' : 'Show more'}
+      </button>
     </div>
   )
 }

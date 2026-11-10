@@ -16,26 +16,29 @@ function Notes() {
     },
   ])
 
-  const [title, setTitle] = useState('')
-  const [body, setBody] = useState('')
+  const [form, setForm] = useState({ title: '', body: '' })
   const [search, setSearch] = useState('')
+
+  function handleChange(event) {
+    const { name, value } = event.target
+    setForm((currentForm) => ({ ...currentForm, [name]: value }))
+  }
 
   function handleSubmit(event) {
     event.preventDefault()
 
-    if (!title.trim() || !body.trim()) {
-      return
-    }
+    const title = form.title.trim()
+    const body = form.body.trim()
+    if (!title || !body) return
 
     const newNote = {
-      id: Date.now(),
+      id: crypto.randomUUID(),
       title: title,
       body: body,
     }
 
     setNotes((prevNotes) => [...prevNotes, newNote])
-    setTitle('')
-    setBody('')
+    setForm({ title: '', body: '' })
   }
 
   function handleDelete(id) {
@@ -45,7 +48,7 @@ function Notes() {
   }
 
   const filteredNotes = notes.filter((note) =>
-    note.title.toLowerCase().includes(search.toLowerCase())
+    note.title.toLowerCase().includes(search.trim().toLowerCase())
   )
 
   return (
@@ -70,15 +73,17 @@ function Notes() {
           <p className="field-label">New note</p>
           <input
             className="text-field"
+            name="title"
             placeholder="Title"
-            value={title}
-            onChange={(event) => setTitle(event.target.value)}
+            value={form.title}
+            onChange={handleChange}
           />
           <textarea
             className="text-field note-textarea"
+            name="body"
             placeholder="Write your note"
-            value={body}
-            onChange={(event) => setBody(event.target.value)}
+            value={form.body}
+            onChange={handleChange}
           />
           <button className="add-note-button" type="submit">
             Add note
@@ -90,7 +95,7 @@ function Notes() {
         <h2 className="all-notes-title">All notes</h2>
 
         {filteredNotes.length === 0 ? (
-          <p>No notes yet.</p>
+          <p className="empty-message">No notes found</p>
         ) : (
           <ul className="notes-grid">
             {filteredNotes.map((note) => (

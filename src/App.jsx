@@ -1,5 +1,6 @@
 import Notes from './components/Notes.jsx'
 import Info from './components/Info.jsx'
+import './App.css'
 
 function App() {
   return (

@@ -166,6 +166,11 @@
   color: #c18585;
 }
 
+.empty-message {
+  color: #949494;
+  font-size: 17px;
+}
+
 .info {
   position: fixed;
   bottom: 28px;
