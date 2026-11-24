@@ -1,13 +1,20 @@
-
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import { SettingsContext } from '../SettingsContext.js'
 
 function NoteCard({ title, body }) {
   const [showMore, setShowMore] = useState(false)
+  const { largeText } = useContext(SettingsContext)
 
   return (
     <div>
-      <h3 className="note-title">{title}</h3>
-      {showMore && <p className="note-body">{body}</p>}
+      <h3 className={largeText ? 'note-title note-title-large' : 'note-title'}>
+        {title}
+      </h3>
+      {showMore && (
+        <p className={largeText ? 'note-body note-body-large' : 'note-body'}>
+          {body}
+        </p>
+      )}
       <button
         className="show-more"
         type="button"

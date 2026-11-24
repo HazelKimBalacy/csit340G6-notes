@@ -136,6 +136,13 @@
   white-space: pre-wrap;
 }
 
+.note-title-large {
+  font-size: 28px;
+}
+
+.note-body-large {
+  font-size: 21px;
+}
 .show-more {
   margin-top: 12px;
   border: 0;
@@ -183,6 +190,23 @@
 .info p {
   margin: 0;
 }
+
+.large-text-button {
+  display: block;
+  margin: 0 0 4px;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.large-text-button:hover {
+  color: #b83f45;
+}
+
 
 @media (max-width: 900px) {
   .notes-layout {
