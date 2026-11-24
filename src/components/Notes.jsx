@@ -1,19 +1,24 @@
 import { useState, useEffect } from 'react'
 import NoteCard from './NoteCard.jsx'
 
+const startingNotes = [
+  {
+    id: 1,
+    title: 'Review map and filter',
+    body: 'Redo the TodoMVC steps without looking at the guide.',
+  },
+  {
+    id: 2,
+    title: 'Prepare for the quiz',
+    body: 'Practice writing one handler for many inputs.',
+  },
+]
+
 function Notes() {
-  const [notes, setNotes] = useState([
-    {
-      id: 1,
-      title: 'Review map and filter',
-      body: 'Redo the TodoMVC steps without looking at the guide.',
-    },
-    {
-      id: 2,
-      title: 'Prepare for the quiz',
-      body: 'Practice writing one handler for many inputs.',
-    },
-  ])
+  const [notes, setNotes] = useState(() => {
+    const saved = localStorage.getItem('notes')
+    return saved ? JSON.parse(saved) : startingNotes
+  })
 
   const [form, setForm] = useState({ title: '', body: '' })
   const [search, setSearch] = useState('')
