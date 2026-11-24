@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useMemo } from 'react'
+import { useState, useEffect, useRef, useMemo, useCallback } from 'react'
 import NoteCard from './NoteCard.jsx'
 
 const startingNotes = [
@@ -58,11 +58,11 @@ function Notes() {
     titleRef.current.focus()
   }
 
-  function handleDelete(id) {
+  const handleDelete = useCallback((id) => {
     setNotes((prevNotes) =>
       prevNotes.filter((note) => note.id !== id)
     )
-  }
+  }, [])
 
   const filteredNotes = useMemo(
     () =>
@@ -122,15 +122,12 @@ function Notes() {
           <ul className="notes-grid">
             {filteredNotes.map((note) => (
               <li className="note-card" key={note.id}>
-                <NoteCard title={note.title} body={note.body} />
-                <button
-                  className="delete-note"
-                  type="button"
-                  aria-label={`Delete ${note.title}`}
-                  onClick={() => handleDelete(note.id)}
-                >
-                  ×
-                </button>
+                <NoteCard
+                  id={note.id}
+                  title={note.title}
+                  body={note.body}
+                  onDelete={handleDelete}
+                />
               </li>
             ))}
           </ul>

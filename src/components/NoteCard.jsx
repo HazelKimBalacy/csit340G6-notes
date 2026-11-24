@@ -1,7 +1,7 @@
-import { useState, useContext } from 'react'
+import { useState, useContext, memo } from 'react'
 import { SettingsContext } from '../SettingsContext.js'
 
-function NoteCard({ title, body }) {
+function NoteCard({ id, title, body, onDelete }) {
   const [showMore, setShowMore] = useState(false)
   const { largeText } = useContext(SettingsContext)
 
@@ -23,8 +23,16 @@ function NoteCard({ title, body }) {
       >
         {showMore ? 'Show less' : 'Show more'}
       </button>
+      <button
+        className="delete-note"
+        type="button"
+        aria-label={`Delete ${title}`}
+        onClick={() => onDelete(id)}
+      >
+        ×
+      </button>
     </div>
   )
 }
 
-export default NoteCard
+export default memo(NoteCard)
